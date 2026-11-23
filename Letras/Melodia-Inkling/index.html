@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Melodía — Letras y estilos</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+  body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+  .font-display { font-family: 'Fraunces', Georgia, serif; }
+  h1,h2,h3,h4,h5,h6 { color: inherit; }
+</style>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          stone: {
+            50: '#faf9f7', 100: '#f2f1ee', 200: '#e8e6e1', 300: '#d8d5cf',
+            400: '#c2bfb7', 500: '#a8a39a', 600: '#8c867c', 800: '#4a4742', 900: '#2e2c28',
+          },
+          amber: { 50:'#fbf7ef', 100:'#f5eed9', 200:'#ead6ab', 300:'#dfbd7a', 600:'#b07a1e', 700:'#8f5d0c', 800:'#74470c', 900:'#5c3a0a' },
+        },
+        fontFamily: {
+          inter: ["'Inter'",'ui-sans-serif','system-ui','sans-serif'],
+          display: ["'Fraunces'",'Georgia','serif'],
+        }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-stone-50 text-stone-900 antialiased selection:bg-amber-200 selection:text-stone-900">
+
+<header class="sticky top-0 z-50 bg-stone-50/90 backdrop-blur border-b border-stone-200">
+  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" onclick="selectStyle('balada'); return false;" class="flex items-center gap-3 group">
+      <span class="w-9 h-9 rounded-sm bg-amber-800 text-white flex items-center justify-center shadow-none">
+        <i class="fa-solid fa-music text-sm"></i>
+      </span>
+      <span class="font-display text-xl font-bold tracking-tight text-stone-900 group-hover:text-amber-800 transition-colors">Melodía</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <button onclick="selectStyle('balada')" id="btn-balada" class="px-4 py-2 text-sm font-medium rounded-sm transition-colors bg-stone-900 text-stone-50">Balada Pop</button>
+      <button onclick="selectStyle('rock')" id="btn-rock" class="px-4 py-2 text-sm font-medium rounded-sm transition-colors text-stone-600 hover:text-stone-900 hover:bg-stone-100">Rock Clásico</button>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6">
+  <section class="pt-16 pb-10 md:pt-24 md:pb-16">
+    <div class="max-w-3xl">
+      <p class="text-[11px] uppercase tracking-[0.22em] text-amber-700 font-semibold mb-5">Explora estilos y letras</p>
+      <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] text-stone-900 mb-7">
+        Letras que cuentan lo que la música siente.
+      </h1>
+      <p class="text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl">
+        Un espacio dedicado a la palabra dentro de la canción. Selecciona un estilo, descubre sus letras y explora las especificaciones que definen cada obra.
+      </p>
+    </div>
+  </section>
+
+  <section class="mb-12" aria-label="Filtros de estilo">
+    <div class="flex flex-wrap gap-2">
+      <button onclick="selectStyle('balada')" id="chip-balada" class="px-6 py-3 rounded-sm text-sm font-semibold border border-amber-800 bg-amber-800 text-white shadow-none transition-all">Balada Pop</button>
+      <button onclick="selectStyle('rock')" id="chip-rock" class="px-6 py-3 rounded-sm text-sm font-semibold border border-stone-300 bg-white text-stone-700 hover:border-stone-400 hover:text-stone-900 transition-all">Rock Clásico</button>
+    </div>
+  </section>
+
+  <section class="mb-16 md:mb-20">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-14">
+      <div class="md:col-span-7">
+        <div class="mb-8">
+          <h2 id="style-title" class="font-display text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-3">Balada Pop</h2>
+          <p id="style-desc" class="text-stone-600 leading-relaxed">Melodías suaves, letras íntimas y arreglos orquestales que acompañan historias de amor y despedida.</p>
+        </div>
+        <div id="songs-list" class="divide-y divide-stone-200 border-t border-stone-200"></div>
+      </div>
+      <aside class="md:col-span-5">
+        <div id="detail-panel" class="sticky top-24 bg-white border border-stone-200 rounded-sm p-6 md:p-10 shadow-none">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-1.5 h-8 bg-amber-800 rounded-full"></span>
+            <h2 class="font-display text-2xl font-bold tracking-tight text-stone-900">Detalle de la canción</h2>
+          </div>
+          <h3 id="detail-title" class="font-display text-3xl font-bold tracking-tight text-stone-900 mb-2">Cartas que no se envían</h3>
+          <p id="detail-artist" class="text-stone-500 font-medium mb-8">Mariana Vega · 2019</p>
+          <div class="grid grid-cols-3 gap-3 mb-9">
+            <div class="bg-stone-50 border border-stone-200 rounded-sm p-3">
+              <p class="text-[10px] uppercase tracking-[0.15em] text-stone-400 font-bold mb-1">Tempo</p>
+              <p id="detail-tempo" class="text-sm font-semibold text-stone-900">Lento (72 BPM)</p>
+            </div>
+            <div class="bg-stone-50 border border-stone-200 rounded-sm p-3">
+              <p class="text-[10px] uppercase tracking-[0.15em] text-stone-400 font-bold mb-1">Tonalidad</p>
+              <p id="detail-key" class="text-sm font-semibold text-stone-900">Re mayor</p>
+            </div>
+            <div class="bg-stone-50 border border-stone-200 rounded-sm p-3">
+              <p class="text-[10px] uppercase tracking-[0.15em] text-stone-400 font-bold mb-1">Duración</p>
+              <p id="detail-duration" class="text-sm font-semibold text-stone-900">4:12</p>
+            </div>
+          </div>
+          <div class="mb-8">
+            <h4 class="text-[11px] uppercase tracking-[0.2em] text-stone-400 font-bold mb-3">Notas de estilo</h4>
+            <p id="detail-intro" class="text-sm text-stone-600 leading-relaxed">Un piano solitario abre el tema como quien abre una ventana en invierno.</p>
+          </div>
+          <div class="border-t border-stone-200 pt-8">
+            <h4 class="text-[11px] uppercase tracking-[0.2em] text-stone-400 font-bold mb-5">Letra</h4>
+            <div id="detail-lyrics" class="space-y-1"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="border-t border-stone-200 py-14 md:py-20">
+    <div class="max-w-3xl">
+      <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tight text-stone-900 mb-8">¿Por qué leer letras con atención?</h2>
+      <div class="space-y-6 text-stone-600 leading-relaxed text-lg">
+        <p>La letra no es solo texto acompañante: es el esqueleto emocional de la canción. Cada verso construye un mundo que la melodía luego habita. Al explorar los estilos, puedes ver cómo las baladas usan el silencio como herramienta narrativa, mientras que el rock lo convierte en una declaración de principios.</p>
+        <p>En esta página encontrarás dos estilos con dos canciones cada uno: un punto de partida para entender las diferencias entre la intimidad de la balada y la urgencia del rock clásico.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-stone-200 bg-stone-100">
+  <div class="max-w-5xl mx-auto px-6 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="w-8 h-8 rounded-sm bg-stone-900 text-white flex items-center justify-center shadow-none">
+        <i class="fa-solid fa-music text-xs"></i>
+      </span>
+      <span class="font-display text-xl font-bold tracking-tight text-stone-900">Melodía</span>
+    </div>
+    <p class="text-sm text-stone-500">Una experiencia para escuchar con los ojos abiertos.</p>
+  </div>
+</footer>
+
+<script>
+const data = {
+  balada: {
+    name: 'Balada Pop',
+    desc: 'Melodías suaves, letras íntimas y arreglos orquestales que acompañan historias de amor y despedida.',
+    songs: [
+      {
+        id: 'b1', title: 'Cartas que no se envían', artist: 'Mariana Vega', year: 2019,
+        tempo: 'Lento (72 BPM)', key: 'Re mayor', duration: '4:12',
+        intro: 'Un piano solitario abre el tema como quien abre una ventana en invierno.',
+        lyrics: [
+          'Escribo cartas que nunca llegan,',
+          'con la tinta de un adiós que no pronuncio.',
+          'En cada línea se esconde un nombre,',
+          'y un silencio que pesa más que el ruido.',
+          '',
+          'El viento trae tu voz entre los árboles,',
+          'y yo aprendo a escuchar sin responder.',
+          'Si el amor es un mapa sin fronteras,',
+          'hoy me pierdo en los límites que creaste.',
+          '',
+          'No hay despedida en esta canción,',
+          'solo un eco que se niega a morir.',
+        ]
+      },
+      {
+        id: 'b2', title: 'Lluvia sobre cristal', artist: 'Andrés Monte', year: 2021,
+        tempo: 'Moderado (84 BPM)', key: 'Mi menor', duration: '3:45',
+        intro: 'Una guitarra acústica pincela la escena como gotas sobre un cristal empañado.',
+        lyrics: [
+          'Las gotas dibujan mapas en el cristal,',
+          'y cada línea es un camino que no tomo.',
+          'Te veo pasar como un reflejo lejano,',
+          'y me quedo quieto para no romperlo.',
+          '',
+          'Si la lluvia tiene memoria de todo,',
+          'quizá recuerde el lugar donde nos vimos.',
+          'Pero yo solo guardo esta ventana,',
+          'y el silencio que deja cuando para de llover.',
+          '',
+          'No hay final, solo una pausa,',
+          'como el aire antes del trueno.',
+        ]
+      }
+    ]
+  },
+  rock: {
+    name: 'Rock Clásico',
+    desc: 'Guitarras con distorsión, ritmos contundentes y líricas con mensaje social y rebeldía.',
+    songs: [
+      {
+        id: 'r1', title: 'Calle de los muros rotos', artist: 'Los Nómadas', year: 2017,
+        tempo: 'Enérgico (128 BPM)', key: 'La menor', duration: '3:30',
+        intro: 'Un riff de guitarra eléctrica corta el aire como una navaja en la oscuridad.',
+        lyrics: [
+          'Caminé por la calle de los muros rotos,',
+          'donde los sueños se venden por monedas.',
+          'Cada ventana es un ojo que no mira,',
+          'y cada puerta, una promesa que no cumple.',
+          '',
+          'No vinimos a pedir permiso,',
+          'vinimos a romper el silencio con las manos.',
+          'Si el mundo es un escenario vacío,',
+          'entonces que la música sea nuestra arma.',
+        ]
+      },
+      {
+        id: 'r2', title: 'Fuego en la medianoche', artist: 'Electra Salvaje', year: 2023,
+        tempo: 'Rápido (142 BPM)', key: 'Do mayor', duration: '4:05',
+        intro: 'Un bajo potente y una batería que no pide perdón marcan el pulso del tema.',
+        lyrics: [
+          'A medianoche el fuego es solo un rumor,',
+          'hasta que alguien decide que arda.',
+          'No hay reglas en esta ciudad,',
+          'solo sombras que corren sin mirar atrás.',
+          '',
+          'Si el miedo es un perro atado,',
+          'hoy cortamos la correa con los dientes.',
+          'No hay mañana, solo este instante,',
+          'y la luz que hacemos al romper el cristal.',
+        ]
+      }
+    ]
+  }
+};
+
+let currentStyle = 'balada';
+let currentSongId = 'b1';
+
+function render() {
+  const style = data[currentStyle];
+  const song = style.songs.find(s => s.id === currentSongId);
+
+  document.getElementById('style-title').textContent = style.name;
+  document.getElementById('style-desc').textContent = style.desc;
+
+  // Update nav chips
+  ['balada','rock'].forEach(k => {
+    const btn = document.getElementById('btn-' + k);
+    const chip = document.getElementById('chip-' + k);
+    const active = k === currentStyle;
+    const clsBtn = active ? 'bg-stone-900 text-stone-50' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100';
+    const clsChip = active ? 'border-amber-800 bg-amber-800 text-white' : 'border-stone-300 bg-white text-stone-700 hover:border-stone-400 hover:text-stone-900';
+    btn.className = 'px-4 py-2 text-sm font-medium rounded-sm transition-colors ' + clsBtn;
+    chip.className = 'px-6 py-3 rounded-sm text-sm font-semibold border shadow-none transition-all ' + clsChip;
+  });
+
+  // Songs list
+  const listEl = document.getElementById('songs-list');
+  listEl.innerHTML = '';
+  style.songs.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'w-full text-left py-6 md:py-8 transition-colors group ' + (s.id === currentSongId ? 'bg-amber-50/40' : 'hover:bg-stone-100/40');
+    btn.innerHTML = `
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 class="font-display text-xl md:text-2xl font-bold tracking-tight mb-1 ${s.id === currentSongId ? 'text-amber-800' : 'text-stone-900'} group-hover:text-amber-800 transition-colors">${s.title}</h3>
+          <p class="text-sm text-stone-500 font-medium">${s.artist} · ${s.year}</p>
+        </div>
+        <span class="text-[10px] uppercase tracking-[0.15em] font-bold px-3 py-1 rounded-sm shrink-0 mt-1 ${s.id === currentSongId ? 'bg-amber-800 text-white' : 'bg-stone-900 text-stone-50'}">Ver letra</span>
+      </div>
+      <div class="mt-3 flex flex-wrap gap-3 text-xs text-stone-500">
+        <span class="bg-white border border-stone-200 px-2.5 py-1 rounded-sm">${s.tempo}</span>
+        <span class="bg-white border border-stone-200 px-2.5 py-1 rounded-sm">${s.key}</span>
+        <span class="bg-white border border-stone-200 px-2.5 py-1 rounded-sm">Duración ${s.duration}</span>
+      </div>
+    `;
+    btn.onclick = () => { currentSongId = s.id; render(); };
+    listEl.appendChild(btn);
+  });
+
+  // Detail panel
+  document.getElementById('detail-title').textContent = song.title;
+  document.getElementById('detail-artist').textContent = song.artist + ' · ' + song.year;
+  document.getElementById('detail-tempo').textContent = song.tempo;
+  document.getElementById('detail-key').textContent = song.key;
+  document.getElementById('detail-duration').textContent = song.duration;
+  document.getElementById('detail-intro').textContent = song.intro;
+
+  const lyricsEl = document.getElementById('detail-lyrics');
+  lyricsEl.innerHTML = '';
+  song.lyrics.forEach(line => {
+    const p = document.createElement('p');
+    p.className = 'text-base md:text-lg leading-snug font-display ' + (line === '' ? 'text-transparent select-none' : 'text-stone-800');
+    p.textContent = line || ' ';
+    p.style.height = line === '' ? '1rem' : 'auto';
+    lyricsEl.appendChild(p);
+  });
+}
+
+function selectStyle(st) {
+  currentStyle = st;
+  currentSongId = data[st].songs[0].id;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>
